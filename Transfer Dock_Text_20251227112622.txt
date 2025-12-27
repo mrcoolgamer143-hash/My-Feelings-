@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Chayanika</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Quicksand:wght@300;400;500&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- CORE STYLES --- */
+        :root {
+            --bg-color: #fdfbf7; /* Warm off-white */
+            --accent-pink: #ffdae0;
+            --text-color: #5d4037; /* Soft brown instead of harsh black */
+            --highlight: #d48897;
+            --glass-bg: rgba(255, 255, 255, 0.4);
+            --glass-border: rgba(255, 255, 255, 0.6);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: linear-gradient(135deg, #fff0f5 0%, #fdfbf7 100%);
+            color: var(--text-color);
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* --- BACKGROUND PARTICLES --- */
+        .bg-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .heart {
+            position: absolute;
+            color: var(--accent-pink);
+            opacity: 0.6;
+            animation: floatUp linear infinite;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(100vh) scale(0.5); opacity: 0; }
+            50% { opacity: 0.8; }
+            100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
+        }
+
+        /* --- TYPOGRAPHY & UTILS --- */
+        .cursive {
+            font-family: 'Dancing Script', cursive;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 8vw, 6rem); /* Responsive font size */
+            line-height: 1.2;
+            color: #8b5e68;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .pulsing-heart {
+            font-size: 2rem;
+            color: var(--highlight);
+            animation: pulse 1.5s infinite ease-in-out;
+            margin-top: 10px;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        /* --- STORY SECTION (Glassmorphism) --- */
+        .story-section {
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 3rem;
+            text-align: center;
+            box-shadow: 0 8px 32px 0 rgba(139, 94, 104, 0.1);
+            max-width: 600px;
+            width: 100%;
+            transition: transform 0.3s ease;
+        }
+
+        .glass-card p {
+            font-size: 1.25rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+        }
+
+        .highlight-text {
+            color: #d48897;
+            font-weight: 700;
+        }
+
+        /* --- FINAL SECTION --- */
+        .final-section {
+            height: 60vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .final-text {
+            font-size: 1.5rem;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            padding: 2rem;
+            text-align: center;
+            font-size: 0.9rem;
+            opacity: 0.7;
+            padding-bottom: 4rem; /* Space for music button on mobile */
+        }
+
+        /* --- ANIMATIONS (Scroll Reveal) --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1.2s ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- MUSIC BUTTON --- */
+        .music-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            cursor: pointer;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: var(--highlight);
+            transition: transform 0.2s;
+        }
+
+        .music-btn:hover {
+            transform: scale(1.1);
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="bg-hearts" id="heartContainer"></div>
+
+    <button class="music-btn" id="musicToggle" title="Play Music">
+        ♪
+    </button>
+    <audio id="bgMusic" loop>
+        <source src="" type="audio/mpeg"> 
+        </audio>
+
+    <header class="hero container">
+        <h1 class="cursive reveal">Hey Chayanika,<br>will you be mine?</h1>
+        <div class="pulsing-heart reveal">♥</div>
+    </header>
+
+    <section class="story-section container">
+        <div class="glass-card reveal">
+            <p>
+                “On 4th May 2025, without any plan, without any expectations…
+                <br><span class="highlight-text">I fell for you.</span>
+            </p>
+            <p>
+                I know there are hundreds of reasons why it might not work.
+                Hundreds of no’s standing in front of us.
+            </p>
+            <p>
+                But somewhere between all of them,
+                there is also one yes.
+            </p>
+            <p class="cursive" style="font-size: 2rem;">
+                And that one yes…<br>
+                is enough for me.”
+            </p>
+        </div>
+    </section>
+
+    <section class="final-section container">
+        <div class="reveal">
+            <p class="final-text">This isn’t a proposal.</p>
+            <br>
+            <p class="final-text cursive" style="font-size: 2.5rem; color: #8b5e68;">It’s just my honest feeling.</p>
+        </div>
+    </section>
+
+    <footer class="reveal">
+        Made with courage, hope, and a little love.
+    </footer>
+
+    <script>
+        // --- 1. SCROLL REVEAL ANIMATION ---
+        // Using IntersectionObserver to detect when elements enter the screen
+        const observerOptions = {
+            threshold: 0.2 // Trigger when 20% of the element is visible
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        // Select all elements with class 'reveal'
+        document.querySelectorAll('.reveal').forEach(el => {
+            observer.observe(el);
+        });
+
+        // --- 2. FLOATING HEARTS GENERATOR ---
+        function createHearts() {
+            const container = document.getElementById('heartContainer');
+            const heartCount = 15; // Number of hearts
+
+            for (let i = 0; i < heartCount; i++) {
+                const heart = document.createElement('div');
+                heart.classList.add('heart');
+                heart.innerHTML = '❤';
+                
+                // Randomize position and animation properties
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.animationDuration = (Math.random() * 3 + 4) + 's'; // 4s to 7s
+                heart.style.fontSize = (Math.random() * 20 + 10) + 'px'; // 10px to 30px
+                heart.style.animationDelay = Math.random() * 5 + 's';
+                
+                container.appendChild(heart);
+            }
+        }
+
+        // Initialize hearts on load
+        createHearts();
+
+        // --- 3. MUSIC PLAYER LOGIC ---
+        const musicBtn = document.getElementById('musicToggle');
+        const audio = document.getElementById('bgMusic');
+        let isPlaying = false;
+
+        musicBtn.addEventListener('click', () => {
+            if (!audio.src || audio.src === window.location.href) {
+                // Alert if no music file is connected
+                alert("Please add an audio file path in the HTML code to play music!");
+                return;
+            }
+
+            if (isPlaying) {
+                audio.pause();
+                musicBtn.innerHTML = '♪'; // Icon for play
+            } else {
+                audio.play();
+                musicBtn.innerHTML = '||'; // Icon for pause
+            }
+            isPlaying = !isPlaying;
+        });
+
+    </script>
+</body>
+</html>
